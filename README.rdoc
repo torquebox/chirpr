@@ -10,7 +10,7 @@ the sqlite3-memory adapter (no configuration needed).
 
 == Getting Started
 
-  ./script/dbsetup
+  ./script/dbsetup install
   jruby -S bundle install
   jruby -S rake db:migrate
   jruby -S ruby application.rb

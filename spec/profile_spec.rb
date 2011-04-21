@@ -15,5 +15,16 @@ describe 'profile' do
     @profile.errors[:name].should include("Name must not be blank")
   end
 
+  it 'should have n chirps' do
+    @profile.chirps.should == []
+  end
+
+  it 'should have n followers' do
+    @profile.followers.should == []
+  end
+
+  it 'should have n friends' do
+    @profile.friends.should == []
+  end
 
 end
