@@ -1,6 +1,9 @@
 
 class Profile
 
+  # Links profiles together as friends and followers
+  # The Profiles that a user follows are friends
+  # The Profiles that are following a user are followers
   class Link
     include DataMapper::Resource
 

@@ -2,6 +2,7 @@ source :rubygems
 
 gem 'torquebox'
 gem 'dm-postgres-adapter'
+gem 'sinatra-twitter-oauth'
 
 gem 'sinatra', '>= 1.0'
 gem 'rake'
