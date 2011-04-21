@@ -3,6 +3,8 @@ source :rubygems
 gem 'torquebox'
 gem 'dm-postgres-adapter'
 gem 'sinatra-twitter-oauth'
+gem 'twitter_oauth'
+gem 'jruby-openssl'
 
 gem 'sinatra', '>= 1.0'
 gem 'rake'

@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.2.5)
     bcrypt-ruby (2.1.4-java)
+    bouncy-castle-java (1.5.0145.2)
     data_mapper (1.1.0)
       dm-aggregates (= 1.1.0)
       dm-constraints (= 1.1.0)
@@ -64,7 +65,11 @@ GEM
     haml (3.0.25)
     jdbc-postgres (9.0.801)
     jdbc-sqlite3 (3.6.14.2.056-java)
+    jruby-openssl (0.7.3)
+      bouncy-castle-java
     json (1.4.6-java)
+    mime-types (1.16)
+    oauth (0.4.4)
     rack (1.2.2)
     rack-test (0.5.7)
       rack (>= 1.0)
@@ -98,6 +103,10 @@ GEM
     torquebox-rake-support (1.0.0.CR1)
     torquebox-vfs (1.0.0.CR1-java)
     torquebox-web (1.0.0.CR1-java)
+    twitter_oauth (0.4.3)
+      json (>= 1.1.9)
+      mime-types (>= 1.16)
+      oauth (>= 0.4.1)
     uuidtools (2.1.2)
 
 PLATFORMS
@@ -113,9 +122,11 @@ DEPENDENCIES
   dm-timestamps
   dm-validations
   haml
+  jruby-openssl
   rack-test
   rake
   rspec
   sinatra (>= 1.0)
   sinatra-twitter-oauth
   torquebox
+  twitter_oauth
