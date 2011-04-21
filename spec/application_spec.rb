@@ -98,5 +98,4 @@ describe 'main application' do
     end
   end
 
-
 end
