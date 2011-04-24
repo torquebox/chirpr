@@ -4,7 +4,7 @@ describe 'main application' do
   include Rack::Test::Methods
 
   def app
-    @app ||= Sinatra::Application.new
+    @app ||= Chirpr::Application.new
   end
 
   def profile
@@ -51,7 +51,7 @@ describe 'main application' do
   context "when logged in" do
 
     def mock_app(&block) 
-      @app ||= Class.new(Sinatra::Application, &block) 
+      @app ||= Class.new(Chirpr::Application, &block) 
     end 
 
     before( :each ) do
