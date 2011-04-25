@@ -1,6 +1,7 @@
 = Chirpr
 
-A simple Sinatra application for TorqueBox. Initial structure based on https://github.com/zapnap/sinatra-template
+A simple Twitter-like Sinatra application for TorqueBox. 
+Initial structure based on https://github.com/zapnap/sinatra-template
 
 == Configuration
 
