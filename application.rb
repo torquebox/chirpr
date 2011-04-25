@@ -33,8 +33,8 @@ module Chirpr
     configure do
       enable :sessions
       set :views, "#{File.dirname(__FILE__)}/views"
-      set :twitter_oauth_config, :key => '65nujhqwZHMbRpA5dT8aqQ',
-                                 :secret   => 'n2CaFV0d8Orz5nqrpuOMAFg6UxGyovD9dztUraDZas',
+      set :twitter_oauth_config, :key => 'changeme',
+                                 :secret   => 'changeme',
                                  :callback => 'http://chirpr.thequalitylab.com/auth',
                                  :login_template => {:haml=>:login}
     end
