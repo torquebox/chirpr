@@ -16,6 +16,7 @@ gem 'dm-validations'
 gem 'dm-aggregates'
 gem 'dm-migrations'
 gem 'haml'
+gem 'sass'
 
 group :test do
   gem 'rspec', :require => 'spec'

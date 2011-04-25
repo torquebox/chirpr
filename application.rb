@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'torquebox'
+require 'sass'
 require 'sinatra-twitter-oauth'
 require File.join(File.dirname(__FILE__), 'environment')
 
@@ -10,17 +11,26 @@ module Chirpr
   class Application < Sinatra::Base
 
     register Sinatra::TwitterOAuth
-    set :twitter_oauth_config, :key => 'foo-key',
-                               :secret   => 'foo-secret',
-                               :callback => 'example.com/foo/auth',
-                               :login_template => {:text=>'<a href="/connect">Login using Twitter</a>'}
+  
     
     get '/login' do
       haml :root
     end
-    
+
+    helpers do
+      def format_time(t)
+        # TODO: Format this nicely
+        t
+      end
+    end
+
     configure do
+      enable :sessions
       set :views, "#{File.dirname(__FILE__)}/views"
+    set :twitter_oauth_config, :key => '65nujhqwZHMbRpA5dT8aqQ',
+                               :secret   => 'n2CaFV0d8Orz5nqrpuOMAFg6UxGyovD9dztUraDZas',
+                               :callback => 'http://chirpr.thequalitylab.com/auth',
+                               :login_template => {:text=>'<a href="/connect">Login using Twitter</a>'}
     end
     
     error do
@@ -58,6 +68,10 @@ module Chirpr
       @follow = Profile.get(params[:id])
       haml :root
     end
+
+    get '/main.css' do
+      scss :main
+    end
     
     post '/unfollow' do
       login_required
@@ -66,7 +80,7 @@ module Chirpr
     
     # This is a wildcard route - it has to be the last one
     get '/:username' do
-      @profile = Profile.get( params[:username] )
+      @profile = Profile.first( :name=>params[:username].downcase )
       @chirps  = @profile.chirps
       haml :root
     end
@@ -78,10 +92,11 @@ end
 module Sinatra::TwitterOAuth
   module Helpers
 
-    def get_or_create_profile
-      @profile = Profile.get( session[:user].screen_name )
+    def get_or_create_profile( name )
+      name.downcase!
+      @profile = Profile.get( name )
       unless @profile
-        @profile = Profile.create( :name => session[:user].info.screen_name )
+        @profile = Profile.create!( :name => name, :created_at => Time.now, :updated_at => Time.now )
       end
     end
 
@@ -93,7 +108,7 @@ module Sinatra::TwitterOAuth
         session[:secret_token] = access_token.secret
         session[:user] = @client.info
 
-        get_or_create_profile
+        get_or_create_profile( @client.info["screen_name"] )
 
         session[:user]
       else

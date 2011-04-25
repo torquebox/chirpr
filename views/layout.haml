@@ -9,6 +9,20 @@
         #logo
           %h1
             %a{:href => '/'}= SiteConfig.title
+        #menu
+          - if session[:user]
+            = "Welcome #{session[:user]['screen_name']}"
+            \|
+            %a{:href=>'/home'} Home
+            \|
+            %a{:href=>"/#{session[:user]['screen_name']}"} Chirps
+            \|
+            %a{:href=>'/logout'} Logout
+          - else
+            %a{:href=>'/connect'} Login with Twitter
+
+
+
       #content= yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"

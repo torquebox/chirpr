@@ -12,7 +12,7 @@ require 'sinatra' unless defined?(Sinatra)
 
 configure do
   SiteConfig = OpenStruct.new(
-                 :title => 'Chirp',
+                 :title => 'Chirpr',
                  :author => 'Red Hat, Inc.',
                  :url_base => 'http://localhost:8080/'
                )
