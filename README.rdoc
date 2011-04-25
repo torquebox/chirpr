@@ -3,6 +3,7 @@
 A simple Twitter-like Sinatra application for TorqueBox. 
 Initial structure based on https://github.com/zapnap/sinatra-template
 
+
 == Configuration
 
 Dependencies and all configuration is done in <tt>environment.rb</tt>. Your
