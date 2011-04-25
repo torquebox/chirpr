@@ -1,0 +1,19 @@
+%h2 Your Followers
+- if @profile.followers.size < 1
+  Oh Noes! You don't have any followers.
+  Maybe if you chirped more you'd gain some.
+
+- else
+  %ul.followers
+    - @profile.friends.each do |friend|
+      %li=friend.name
+
+#chirpbox
+  %h2 Chirp!
+  %form{:action=>'/chirp', :method=>'POST'}
+    %label{:for=>:message} What's on your mind?
+    %br
+    %textarea{:name=>:message, :id=>:message}
+    %br
+    %input{:type=>:submit, :value=>"Chirp!"}
+

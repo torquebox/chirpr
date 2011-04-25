@@ -1,0 +1,19 @@
+%h2 Your Friends
+- if @profile.friends.size < 1
+  Oh Noes! You don't have any friends.
+  %br
+  %a{:href=>'/profiles'} Make some!
+- else
+  %ul.friends
+    - @profile.friends.each do |friend|
+      %li=friend.name
+
+#chirpbox
+  %h2 Chirp!
+  %form{:action=>'/chirp', :method=>'POST'}
+    %label{:for=>:message} What's on your mind?
+    %br
+    %textarea{:name=>:message, :id=>:message}
+    %br
+    %input{:type=>:submit, :value=>"Chirp!"}
+
