@@ -1,0 +1,29 @@
+
+- if @chirps.nil? || @chirps.size < 1
+  %h2 Oh Noes!
+  %p
+    Looks like
+    = params[:username]
+    hasn't chirped yet!
+
+- else
+  %h2
+    Chirps from
+    = params[:username]
+
+%ul.chirps
+  - @chirps.each do |chirp|
+    %li 
+      %span.messsage
+        %blockquote
+          = chirp.message
+          %br
+      %span.author
+        Sent on
+        = format_time(chirp.created_at)
+        by
+        %a{:href=>"/#{chirp.profile.name}"}
+          = chirp.profile.name
+
+
+

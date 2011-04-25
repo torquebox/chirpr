@@ -22,15 +22,21 @@ module Chirpr
         # TODO: Format this nicely
         t
       end
+
+      def screen_name
+        return nil unless session[:user]
+        session[:user]["screen_name"]
+      end
+
     end
 
     configure do
       enable :sessions
       set :views, "#{File.dirname(__FILE__)}/views"
-    set :twitter_oauth_config, :key => '65nujhqwZHMbRpA5dT8aqQ',
-                               :secret   => 'n2CaFV0d8Orz5nqrpuOMAFg6UxGyovD9dztUraDZas',
-                               :callback => 'http://chirpr.thequalitylab.com/auth',
-                               :login_template => {:text=>'<a href="/connect">Login using Twitter</a>'}
+      set :twitter_oauth_config, :key => '65nujhqwZHMbRpA5dT8aqQ',
+                                 :secret   => 'n2CaFV0d8Orz5nqrpuOMAFg6UxGyovD9dztUraDZas',
+                                 :callback => 'http://chirpr.thequalitylab.com/auth',
+                                 :login_template => {:text=>'<a href="/connect">Login using Twitter</a>'}
     end
     
     error do
@@ -38,51 +44,59 @@ module Chirpr
       Kernel.puts e.backtrace.join("\n")
       'Application error'
     end
+
+    ['/home', '/friends', '/followers', '/follow', '/unfollow', '/chirp'].each do |path|
+      before path do
+        login_required
+        @profile = get_profile( screen_name )
+      end
+    end
     
     get '/' do
       haml :root
     end
     
     get '/profiles' do
-      Profile.all
-      haml :root
+      @profiles = Profile.all
+      haml :profiles
     end
     
     get '/home' do
-      login_required
-      haml :root
+      haml :home
     end
     
     get '/friends' do
-      login_required
-      haml :root
+      haml :friends
     end
     
     get '/followers' do
-      login_required
-      haml :root
+      haml :followers
     end
 
     post '/follow' do
-      login_required
       @follow = Profile.get(params[:id])
       haml :root
+    end
+
+    post '/unfollow' do
+      haml :root
+    end
+
+    post '/chirp' do
+      @profile.chirps.create(:message=>params[:message], :created_at=>Time.now)
+      redirect to('/home')
     end
 
     get '/main.css' do
       scss :main
     end
     
-    post '/unfollow' do
-      login_required
-      haml :root
-    end
     
     # This is a wildcard route - it has to be the last one
     get '/:username' do
-      @profile = Profile.first( :name=>params[:username].downcase )
-      @chirps  = @profile.chirps
-      haml :root
+      profile = get_profile( params[:username] )
+      @chirps = profile ? profile.chirps : []
+      haml :chirps
     end
   end
 end
@@ -92,9 +106,14 @@ end
 module Sinatra::TwitterOAuth
   module Helpers
 
+    def get_profile( name )
+      return nil unless name
+      Profile.first( :name => name.downcase )
+    end
+
     def get_or_create_profile( name )
       name.downcase!
-      @profile = Profile.get( name )
+      @profile = get_profile( name )
       unless @profile
         @profile = Profile.create!( :name => name, :created_at => Time.now, :updated_at => Time.now )
       end

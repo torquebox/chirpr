@@ -1,0 +1,9 @@
+%h2 Some Chirprs
+
+%ul.profiles
+  - @profiles.each do |profile|
+    %li
+      =profile.name
+      %br
+      since
+      =format_time( profile.created_at )

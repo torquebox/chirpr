@@ -11,11 +11,11 @@
             %a{:href => '/'}= SiteConfig.title
         #menu
           - if session[:user]
-            = "Welcome #{session[:user]['screen_name']}"
+            = "Welcome #{screen_name}"
             \|
             %a{:href=>'/home'} Home
             \|
-            %a{:href=>"/#{session[:user]['screen_name']}"} Chirps
+            %a{:href=>"/#{screen_name}"} Chirps
             \|
             %a{:href=>'/logout'} Logout
           - else
@@ -23,6 +23,15 @@
 
 
 
-      #content= yield
+      #content
+        - if session[:user]
+          #chirpbox
+            %form{:action=>'/chirp', :method=>'POST'}
+              %label{:for=>:message} What's on your mind?
+              %br
+              %textarea{:name=>:message, :id=>:message}
+              %br
+              %input{:type=>:submit, :value=>"Chirp!"}
+        = yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"
