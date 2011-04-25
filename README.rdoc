@@ -16,3 +16,4 @@ the sqlite3-memory adapter (no configuration needed).
   jruby -S rake db:migrate
   jruby -S ruby application.rb
 
+
