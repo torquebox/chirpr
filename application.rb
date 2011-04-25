@@ -52,6 +52,17 @@ module Chirpr
       login_required
       haml :root
     end
+
+    post '/follow' do
+      login_required
+      @follow = Profile.get(params[:id])
+      haml :root
+    end
+    
+    post '/unfollow' do
+      login_required
+      haml :root
+    end
     
     # This is a wildcard route - it has to be the last one
     get '/:username' do
