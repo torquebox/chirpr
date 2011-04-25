@@ -9,7 +9,7 @@ body {
 
 #header {
   padding: 0.5em 0 0 0;
-  margin: 0;
+  margin: 0 0 20px;
   text-align: center;
   border-bottom: 3px solid #000; }
 
@@ -61,10 +61,26 @@ a {
 #logo a:hover {
   text-decoration: none; }
 
-#chirpbox {
+#menu {
+  margin-bottom: 10px;
+}
+
+#login, #chirpbox {
   width: 50%;
   margin: 20px auto;
   font-size: 1.25em;
+}
+
+#login {
+  text-align: center;
+}
+
+#chirpbox {
+  width: 100%;
+  font-size: 1.25em;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: #ccc 5px solid;
   textarea {
     width: 100%;
     height: 60px;

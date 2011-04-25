@@ -36,7 +36,7 @@ module Chirpr
       set :twitter_oauth_config, :key => '65nujhqwZHMbRpA5dT8aqQ',
                                  :secret   => 'n2CaFV0d8Orz5nqrpuOMAFg6UxGyovD9dztUraDZas',
                                  :callback => 'http://chirpr.thequalitylab.com/auth',
-                                 :login_template => {:text=>'<a href="/connect">Login using Twitter</a>'}
+                                 :login_template => {:haml=>:login}
     end
     
     error do

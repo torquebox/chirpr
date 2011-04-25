@@ -15,7 +15,11 @@
             \|
             %a{:href=>'/home'} Home
             \|
-            %a{:href=>"/#{screen_name}"} Chirps
+            %a{:href=>'/friends'} Friends
+            \|
+            %a{:href=>'/followers'} Followers
+            \|
+            %a{:href=>"/#{screen_name}"} Your Chirps
             \|
             %a{:href=>'/logout'} Logout
           - else
@@ -24,14 +28,6 @@
 
 
       #content
-        - if session[:user]
-          #chirpbox
-            %form{:action=>'/chirp', :method=>'POST'}
-              %label{:for=>:message} What's on your mind?
-              %br
-              %textarea{:name=>:message, :id=>:message}
-              %br
-              %input{:type=>:submit, :value=>"Chirp!"}
         = yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"

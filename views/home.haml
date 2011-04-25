@@ -2,3 +2,13 @@
 - if @profile.friends.size < 1
   Oh noes! You don't have any friends yet!
   %a{:href=>'/profiles'} Make some!
+
+#chirpbox
+  %h2 Chirp!
+  %form{:action=>'/chirp', :method=>'POST'}
+    %label{:for=>:message} What's on your mind?
+    %br
+    %textarea{:name=>:message, :id=>:message}
+    %br
+    %input{:type=>:submit, :value=>"Chirp!"}
+
