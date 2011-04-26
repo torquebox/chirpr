@@ -31,10 +31,12 @@ module Chirpr
     end
 
     configure do
+      raise Exception.new("ENV['oauth_key'] and ENV['oauth_secret'] not set. Can't do much without them.") unless ENV['oauth_key'] && ENV['oauth_secret']
+      
       enable :sessions
       set :views, "#{File.dirname(__FILE__)}/views"
-      set :twitter_oauth_config, :key => 'changeme',
-                                 :secret   => 'changeme',
+      set :twitter_oauth_config, :key => ENV['oauth_key'],
+                                 :secret   => ENV['oauth_secret'],
                                  :callback => 'http://chirpr.thequalitylab.com/auth',
                                  :login_template => {:haml=>:login}
     end
