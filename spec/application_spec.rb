@@ -11,24 +11,37 @@ describe 'main application' do
     @profile ||= Profile.new(:name=>'matz')
   end
 
+  def mock_app(&block) 
+    @app = Class.new(Chirpr::Application, &block) 
+  end 
+
+  def login
+    mock_app do
+      def login_required
+        true
+      end
+      def get_profile( name )
+        Profile.new(:name=>name)
+      end
+    end
+  end
+
   before( :each ) do
     Profile.stub(:get ).with( profile.name ).and_return( profile )
   end
   
   context 'all requests' do
+    before :each do
+      mock_app do
+      end
+    end
+
     it 'responds to GET /' do # show all chirps
       get '/'
       last_response.should be_ok
     end
   
-    it 'responds to GET /:username and finds the user profile' do 
-      Profile.should_receive( :get ).with( profile.name ).and_return( profile )
-      get profile.name
-      last_response.should be_ok
-    end
-  
-    it 'responds to GET /:username with all chirps from the user' do 
-      profile.should_receive( :chirps )
+    it 'responds to GET /:username' do 
       get profile.name
       last_response.should be_ok
     end
@@ -44,7 +57,7 @@ describe 'main application' do
     end
   
     it 'responds to GET /profiles with all Profiles' do
-      Profile.should_receive :all
+      Profile.should_receive( :all ).and_return( [] )
       get '/profiles'
       last_response.should be_ok
     end
@@ -52,17 +65,7 @@ describe 'main application' do
 
   context "when logged in" do
 
-    def mock_app(&block) 
-      @app = Class.new(Chirpr::Application, &block) 
-    end 
-
-    before( :each ) do
-      mock_app do
-        def login_required
-          true
-        end
-      end
-    end
+    before( :each ) { login }
 
     it 'responds to GET /home' do # show the dashboard
       get '/home'

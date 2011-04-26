@@ -1,3 +1,7 @@
+# Setup required env vars
+ENV['oauth_key'] = "A key"
+ENV['oauth_secret'] = "A secret"
+
 require 'rubygems'
 require 'bundler'
 Bundler.setup(:default, :test)

@@ -65,6 +65,7 @@ mode, issue the following command.
 
 ## TODO
 
+  - Follow and unfollow 
   - Download and store a user's twitter profile image locally/cloudly when the
     Profile is created.  On subsequent logins, check the response from twitter
     for the latest profile image url and compare. If it's changed, update the
