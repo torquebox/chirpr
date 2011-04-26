@@ -31,3 +31,6 @@
         = yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"
+        - if session[:user] 
+          /
+            =session[:user].inspect
