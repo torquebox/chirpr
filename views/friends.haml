@@ -1,6 +1,6 @@
 %h2 Your Friends
 
-- if @profile.friends.size < 1
+- if !@profile.has_friends?
   Oh Noes! You don't have any friends.
   %br
   %a{:href=>'/profiles'} Make some!

@@ -22,7 +22,8 @@ class Profile
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  validates_presence_of :name
+  validates_presence_of   :name
+  validates_uniqueness_of :name
 
   has n, :chirps
 
@@ -35,20 +36,28 @@ class Profile
   has n, :followers, self, :through => :links_to_followers, :via => :follower
 
   # Follow one or more friends
-  def follow(friends)
-    links_to_friends.concat(Array(friends))
+  def follow(others)
+    friends.concat(Array(others))
     save
     self
   end
 
   # Unfollow one or more friends
-  def unfollow(friends)
-    links_to_friends.all(:friend=>Array(friends)).destroy!
+  def unfollow(others)
+    links_to_friends.all(:friend=>Array(others)).destroy!
     reload
     self
   end
 
   def follows?(friend)
     friends.include?( friend )
+  end
+
+  def has_friends?
+    friends.count > 0
+  end
+
+  def has_followers?
+    followers.count > 0
   end
 end

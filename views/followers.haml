@@ -1,12 +1,12 @@
 %h2 Your Followers
-- if @profile.followers.size < 1
+- if !@profile.has_followers?
   Oh Noes! You don't have any followers.
   Maybe if you chirped more you'd gain some.
 
 - else
   %ul.followers
-    - @profile.friends.each do |friend|
-      - if friend.id != @profile.id
-        = partial :'partials/profile', :locals=>{:profile=>friend}
+    - @profile.followers.each do |follower|
+      - if follower.id != @profile.id
+        = partial :'partials/profile', :locals=>{:profile=>follower}
 
 = partial :'partials/chirpbox'
