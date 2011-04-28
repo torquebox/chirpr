@@ -65,7 +65,13 @@ mode, issue the following command.
 
 ## TODO
 
-  - Follow and unfollow 
+  - Redirect to your chirps after you chirp
+  - Show my chirps on the home page if I'm logged in
+  - Check chirp max length + introduce better error checking
+  - Show latest chirp, not first chirp
+  - Reverse chrono chirp lists
+  - Don't show profile pages for users that don't exist
+  - Chirp text box at the top on /home
   - Download and store a user's twitter profile image locally/cloudly when the
     Profile is created.  On subsequent logins, check the response from twitter
     for the latest profile image url and compare. If it's changed, update the
