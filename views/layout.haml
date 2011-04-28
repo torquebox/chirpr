@@ -10,10 +10,12 @@
           %h1
             %a{:href => '/'}= SiteConfig.title
         #menu
-          - if session[:user]
+          - if current_user
             = "Welcome #{screen_name}"
             \|
             %a{:href=>'/home'} Home
+            \|
+            %a{:href=>'/profiles'} People
             \|
             %a{:href=>'/friends'} Friends
             \|
@@ -23,6 +25,10 @@
             \|
             %a{:href=>'/logout'} Logout
           - else
+            %a{:href=>'/profiles'} People
+            \|
+            %a{:href=>'/'} Chirps
+            \|
             %a{:href=>'/connect'} Login with Twitter
 
 
@@ -31,6 +37,6 @@
         = yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"
-        - if session[:user] 
+        - if current_user
           /
-            =session[:user].inspect
+            =current_user.inspect

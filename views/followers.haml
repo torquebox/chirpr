@@ -6,14 +6,6 @@
 - else
   %ul.followers
     - @profile.friends.each do |friend|
-      %li=friend.name
+      = partial :'partials/profile', :locals=>{:profile=>friend}
 
-#chirpbox
-  %h2 Chirp!
-  %form{:action=>'/chirp', :method=>'POST'}
-    %label{:for=>:message} What's on your mind?
-    %br
-    %textarea{:name=>:message, :id=>:message}
-    %br
-    %input{:type=>:submit, :value=>"Chirp!"}
-
+= partial :'partials/chirpbox'

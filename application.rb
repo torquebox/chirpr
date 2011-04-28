@@ -1,39 +1,40 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'sinatra'
 require 'torquebox'
-require 'sass'
+
+require 'sinatra'
 require 'sinatra-twitter-oauth'
+
+require 'sass'
+require 'rack-flash'
+require 'sinatra/url_for'
+
 require File.join(File.dirname(__FILE__), 'environment')
+require 'helpers'
 
 
 module Chirpr
   class Application < Sinatra::Base
 
     register Sinatra::TwitterOAuth
+    use Rack::Flash
   
     
     get '/login' do
       haml :root
     end
 
-    helpers do
-      def format_time(t)
-        # TODO: Format this nicely
-        t
-      end
-
-      def screen_name
-        return nil unless session[:user]
-        session[:user]["screen_name"]
-      end
-
-    end
+    helpers Sinatra::UrlForHelper
+    helpers Chirpr::Helpers
 
     configure do
-      raise Exception.new("ENV['oauth_key'] and ENV['oauth_secret'] not set. Can't do much without them.") unless ENV['oauth_key'] && ENV['oauth_secret']
+
+      unless ENV['oauth_key'] && ENV['oauth_secret']
+        puts "ENV['oauth_key'] and ENV['oauth_secret'] not set. Can't do much without them."
+      end
       
       enable :sessions
+
       set :views, "#{File.dirname(__FILE__)}/views"
       set :twitter_oauth_config, :key => ENV['oauth_key'],
                                  :secret   => ENV['oauth_secret'],
@@ -50,8 +51,13 @@ module Chirpr
     ['/home', '/friends', '/followers', '/follow', '/unfollow', '/chirp'].each do |path|
       before path do
         login_required
-        @profile = get_profile( screen_name )
       end
+    end
+
+    before do
+      puts "ENV['oauth_key'] and ENV['oauth_secret'] not set. Can't do much without them." unless configured?
+      # Will be null if not logged in
+      @profile = get_profile( screen_name )
     end
     
     get '/' do
@@ -76,8 +82,14 @@ module Chirpr
     end
 
     post '/follow' do
-      @follow = Profile.get(params[:id])
-      haml :root
+      if @friend = Profile.get(params[:id])
+        @profile.friends << @friend
+        @profile.save
+        flash[:notice] = "You are now following #{@friend.name}"
+      else
+        flash[:notice] = "Sorry. Can't seem to find the person you're looking for."
+      end
+      haml :home
     end
 
     post '/unfollow' do

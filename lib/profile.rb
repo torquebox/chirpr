@@ -47,4 +47,8 @@ class Profile
     reload
     self
   end
+
+  def follows?(friend)
+    friends.include?( friend )
+  end
 end

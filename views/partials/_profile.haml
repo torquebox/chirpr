@@ -1,0 +1,29 @@
+%li{:style=>'margin-bottom:15px;padding-bottom:15px;border-bottom:#ccc 3px dashed'}
+  %a{:href=>url_for("/#{profile.name.downcase}")} 
+    =profile.name
+  - if current_user
+    - if @profile.follows? profile
+      %form{:method=>'POST', :action=>url_for('/unfollow'), :style=>'display:inline-block;float:right;'}
+        %input{:type=>:hidden, :name=>:id, :value=>profile.id}
+        %input{:type=>:submit, :value=>'Unfollow!'}
+    - else
+      %form{:method=>'POST', :action=>url_for('/follow'), :style=>'display:inline-block;float:right;'}
+        %input{:type=>:hidden, :name=>:id, :value=>profile.id}
+        %input{:type=>:submit, :value=>'Follow!'}
+  - else
+    %br
+    to follow 
+    =profile.name
+    %a{:href=>url_for('/connect')} 
+      login with Twitter
+  .latest
+    - if profile.chirps.size > 0
+      Latest chirp:
+      =profile.chirps.first.message
+      %br
+      chirping since
+      =format_time( profile.created_at )
+    - else
+      = profile.name
+      hasn't chirped yet!
+

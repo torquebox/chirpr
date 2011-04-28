@@ -1,9 +1,5 @@
-%h2 Some Chirprs
+%h2 People
 
-%ul.profiles
+%ul.profiles{:style=>'list-style:none;margin:0;padding:0'}
   - @profiles.each do |profile|
-    %li
-      =profile.name
-      %br
-      since
-      =format_time( profile.created_at )
+    = partial :'partials/profile', :locals=>{:profile=>profile}
