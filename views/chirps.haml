@@ -1,4 +1,7 @@
 
+- if current_user
+  = partial :'partials/chirpbox'
+
 - if @chirps.nil? || @chirps.size < 1
   %h2 Oh Noes!
   %p

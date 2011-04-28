@@ -84,9 +84,9 @@ module Chirpr
     post '/follow' do
       if @friend = Profile.get(params[:id])
         @profile.follow( @friend )
-        flash[:notice] = "You are now following #{@friend.name}"
+        flash.now[:notice] = "You are now following #{@friend.name}"
       else
-        flash[:notice] = "Sorry. Can't seem to find the person you're looking for."
+        flash.now[:notice] = "Sorry. Can't seem to find the person you're looking for."
       end
       haml :home
     end
@@ -94,16 +94,16 @@ module Chirpr
     post '/unfollow' do
       if @friend = Profile.get(params[:id]) 
         @profile.unfollow( @friend )
-        flash[:notice] = "You are no longer following #{@friend.name}"
+        flash.now[:notice] = "You are no longer following #{@friend.name}"
       else
-        flash[:notice] = "Sorry. Can't seem to find the person you're looking for."
+        flash.now[:notice] = "Sorry. Can't seem to find the person you're looking for."
       end
       haml :home
     end
 
     post '/chirp' do
       @profile.chirps.create(:message=>params[:message], :created_at=>Time.now)
-      redirect to('/home')
+      redirect to("/#{screen_name}")
     end
 
     get '/main.css' do
@@ -113,9 +113,13 @@ module Chirpr
     
     # This is a wildcard route - it has to be the last one
     get '/:username' do
-      profile = get_profile( params[:username] )
-      @chirps = profile ? profile.chirps : []
-      haml :chirps
+      if profile = get_profile( params[:username] )
+        @chirps = profile ? profile.chirps.reverse : []
+        haml :chirps
+      else
+        flash.now[:notice] = "Hrm. Can't find that user"
+        haml :root
+      end
     end
   end
 end

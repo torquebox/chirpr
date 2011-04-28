@@ -1,7 +1,17 @@
+- unless flash[:notice].nil?
+  .flash=flash[:notice]
+
+- if current_user
+  = partial :'partials/chirpbox'
+
+  %h2 Your Chirps
+  %ul.chirps
+    - @profile.chirps.reverse.each do |chirp|
+      = partial :'partials/chirp', :locals => { :chirp => chirp }
+
+
 %h2 Recent Chirps
 %ul.chirps
   - Chirp.latest.each do |chirp|
     = partial :'partials/chirp', :locals => { :chirp => chirp }
 
-- if current_user
-  = partial :'partials/chirpbox'

@@ -22,7 +22,9 @@
   .latest
     - if profile.chirps.size > 0
       Latest chirp:
-      =profile.chirps.first.message
+      =profile.chirps.last.message
+      on 
+      =format_time(profile.chirps.last.created_at)
       %br
       chirping since
       =format_time( profile.created_at )
