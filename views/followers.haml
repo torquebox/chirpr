@@ -6,6 +6,7 @@
 - else
   %ul.followers
     - @profile.friends.each do |friend|
-      = partial :'partials/profile', :locals=>{:profile=>friend}
+      - if friend.id != @profile.id
+        = partial :'partials/profile', :locals=>{:profile=>friend}
 
 = partial :'partials/chirpbox'

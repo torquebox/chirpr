@@ -43,7 +43,7 @@ class Profile
 
   # Unfollow one or more friends
   def unfollow(friends)
-    links_to_friends.all(:followed=>Array(friends)).destroy!
+    links_to_friends.all(:friend=>Array(friends)).destroy!
     reload
     self
   end

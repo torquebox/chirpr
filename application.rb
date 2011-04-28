@@ -83,8 +83,7 @@ module Chirpr
 
     post '/follow' do
       if @friend = Profile.get(params[:id])
-        @profile.friends << @friend
-        @profile.save
+        @profile.follow( @friend )
         flash[:notice] = "You are now following #{@friend.name}"
       else
         flash[:notice] = "Sorry. Can't seem to find the person you're looking for."
@@ -93,7 +92,13 @@ module Chirpr
     end
 
     post '/unfollow' do
-      haml :root
+      if @friend = Profile.get(params[:id]) 
+        @profile.unfollow( @friend )
+        flash[:notice] = "You are no longer following #{@friend.name}"
+      else
+        flash[:notice] = "Sorry. Can't seem to find the person you're looking for."
+      end
+      haml :home
     end
 
     post '/chirp' do
