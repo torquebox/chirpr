@@ -44,7 +44,7 @@ module Chirpr
     
     error do
       e = request.env['sinatra.error']
-      Kernel.puts e.backtrace.join("\n")
+      puts e.backtrace.join("\n")
       'Application error'
     end
 
@@ -102,7 +102,11 @@ module Chirpr
     end
 
     post '/chirp' do
-      @profile.chirps.create(:message=>params[:message], :created_at=>Time.now)
+      @chirp = @profile.chirps.create(:message=>params[:message], :created_at=>Time.now)
+      unless @chirp.valid?
+        flash[:notice] = "Hrm. Something went wrong. Sorry about that.<br>"
+        flash[:notice] <<  @chirp.errors[:message].first
+      end  
       redirect to("/#{screen_name}")
     end
 

@@ -3,10 +3,10 @@ class Chirp
   include DataMapper::Resource
 
   property :id,         Serial
-  property :message,    String  
+  property :message,    String,  :length => 141
   property :created_at, DateTime
 
-  validates_presence_of :message
+  validates_length_of   :message, :within => 1..141
   belongs_to :profile
 
   def self.latest
