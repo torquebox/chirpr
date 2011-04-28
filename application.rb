@@ -38,7 +38,7 @@ module Chirpr
       set :views, "#{File.dirname(__FILE__)}/views"
       set :twitter_oauth_config, :key => ENV['oauth_key'],
                                  :secret   => ENV['oauth_secret'],
-                                 :callback => 'http://chirpr.thequalitylab.com/auth',
+                                 :callback => 'http://chirpr.torquebox.org:8080/auth',
                                  :login_template => {:haml=>:login}
     end
     
