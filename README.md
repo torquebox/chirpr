@@ -72,3 +72,4 @@ mode, issue the following command.
     local image.
   - Styling, styling, styling
   - Other things I haven't thought of. Or have thought of and forgotten about.
+
