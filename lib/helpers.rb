@@ -14,6 +14,11 @@ module Chirpr
       session[:user]
     end
 
+    def icon_for(profile)
+      return "" if profile.icon_url.nil?
+      "<img src='#{profile.icon_url}' alt='#{profile.name}'/>"
+    end
+
     def configured?
       ENV['oauth_key'] && ENV['oauth_secret']
     end
