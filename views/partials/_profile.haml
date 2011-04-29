@@ -1,5 +1,6 @@
 %li{:style=>'margin-bottom:15px;padding-bottom:15px;border-bottom:#ccc 3px dashed'}
   %a{:href=>url_for("/#{profile.name.downcase}")} 
+    %img{:src=>profile.icon_url}
     =profile.name
   - if current_user
     - if @profile.id != profile.id

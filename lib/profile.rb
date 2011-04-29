@@ -19,6 +19,7 @@ class Profile
 
   property :id,         Serial
   property :name,       String, :required => true
+  property :icon_url,   String
   property :created_at, DateTime
   property :updated_at, DateTime
 

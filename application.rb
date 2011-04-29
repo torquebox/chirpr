@@ -38,7 +38,7 @@ module Chirpr
       set :views, "#{File.dirname(__FILE__)}/views"
       set :twitter_oauth_config, :key => ENV['oauth_key'],
                                  :secret   => ENV['oauth_secret'],
-                                 :callback => 'http://chirpr.torquebox.org:8080/auth',
+                                 :callback => 'http://chirpr.infinitechallenge.com/auth',
                                  :login_template => {:haml=>:login}
     end
     
@@ -144,6 +144,8 @@ module Sinatra::TwitterOAuth
       unless @profile
         @profile = Profile.create!( :name => name, :created_at => Time.now, :updated_at => Time.now )
       end
+      @profile.icon_url = session[:user]["profile_image_url"]
+      @profile.save
     end
 
     def authenticate!
