@@ -15,9 +15,9 @@ configure do
                  :title => 'Chirpr',
                  :author => 'Red Hat, Inc.',
                  :url_base => 'http://localhost:8080/',
-                 :twitter_key => SiteConfig.twitter_key,
-                 :twitter_secret => SiteConfig.twitter_secret,
-                 :twitter_callback => SiteConfig.twitter_callback
+                 :twitter_key => ENV['oauth_key'],
+                 :twitter_secret => ENV['oauth_secret'],
+                 :twitter_callback => ENV['oauth_callback']
                )
 
   # load models

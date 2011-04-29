@@ -29,9 +29,9 @@ module Chirpr
 
     configure do
 
-      set :twitter_oauth_config, :key => ENV['oauth_key'],
-                                 :secret   => ENV['oauth_secret'],
-                                 :callback => 'http://chirpr.thequalitylab.com/auth',
+      set :twitter_oauth_config, :key => SiteConfig.twitter_key,
+                                 :secret   => SiteConfig.twitter_secret,
+                                 :callback => SiteConfig.twitter_callback,
                                  :login_template => {:haml=>:login}
     end
 
