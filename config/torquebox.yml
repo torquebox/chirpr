@@ -1,3 +1,4 @@
 environment:
-  oauth_key: "o1debqqUtNLyB1SJ6j1g"
-  oauth_secret: "1M7godihkZpZQyKZPOjuPdyHt3Ig7if2zBkIh0gsc"
+  oauth_key: changeme
+  oauth_secret: changeme
+  oauth_callback: "http://chirpr.torquebox.org:8080/auth"

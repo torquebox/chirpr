@@ -12,7 +12,6 @@ require 'sinatra/url_for'
 require File.join(File.dirname(__FILE__), 'environment')
 require 'helpers'
 
-
 module Chirpr
   class Application < Sinatra::Base
 
@@ -26,6 +25,14 @@ module Chirpr
       e = request.env['sinatra.error']
       puts e.backtrace.join("\n")
       'Application error'
+    end
+
+    configure do
+
+      set :twitter_oauth_config, :key => ENV['oauth_key'],
+                                 :secret   => ENV['oauth_secret'],
+                                 :callback => 'http://chirpr.thequalitylab.com/auth',
+                                 :login_template => {:haml=>:login}
     end
 
     ['/home', '/friends', '/followers', '/follow', '/unfollow', '/chirp'].each do |path| 

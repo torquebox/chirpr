@@ -14,7 +14,10 @@ configure do
   SiteConfig = OpenStruct.new(
                  :title => 'Chirpr',
                  :author => 'Red Hat, Inc.',
-                 :url_base => 'http://localhost:8080/'
+                 :url_base => 'http://localhost:8080/',
+                 :twitter_key => SiteConfig.twitter_key,
+                 :twitter_secret => SiteConfig.twitter_secret,
+                 :twitter_callback => SiteConfig.twitter_callback
                )
 
   # load models
@@ -31,8 +34,4 @@ configure do
 
   set :views, "#{File.dirname(__FILE__)}/views"
 
-  set :twitter_oauth_config, :key => ENV['oauth_key'],
-                             :secret   => ENV['oauth_secret'],
-                             :callback => 'http://chirpr.thequalitylab.com/auth',
-                             :login_template => {:haml=>:login}
 end
