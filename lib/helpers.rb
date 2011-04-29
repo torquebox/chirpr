@@ -2,8 +2,7 @@ module Chirpr
   module Helpers
 
     def format_time(t)
-      # TODO: Format this nicely
-      t
+      t.strftime("%B %d, %Y, at %l:%M%p")
     end
 
     def screen_name

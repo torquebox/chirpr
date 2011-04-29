@@ -19,38 +19,18 @@ module Chirpr
     register Sinatra::TwitterOAuth
     use Rack::Flash
   
-    
-    get '/login' do
-      haml :root
-    end
-
     helpers Sinatra::UrlForHelper
     helpers Chirpr::Helpers
 
-    configure do
-
-      unless ENV['oauth_key'] && ENV['oauth_secret']
-        puts "ENV['oauth_key'] and ENV['oauth_secret'] not set. Can't do much without them."
-      end
-      
-      enable :sessions
-
-      set :views, "#{File.dirname(__FILE__)}/views"
-      set :twitter_oauth_config, :key => ENV['oauth_key'],
-                                 :secret   => ENV['oauth_secret'],
-                                 :callback => 'http://chirpr.infinitechallenge.com/auth',
-                                 :login_template => {:haml=>:login}
-    end
-    
     error do
       e = request.env['sinatra.error']
       puts e.backtrace.join("\n")
       'Application error'
     end
 
-    ['/home', '/friends', '/followers', '/follow', '/unfollow', '/chirp'].each do |path|
-      before path do
-        login_required
+    ['/home', '/friends', '/followers', '/follow', '/unfollow', '/chirp'].each do |path| 
+      before path do 
+        login_required 
       end
     end
 
