@@ -20,10 +20,6 @@ module Chirpr
     use Rack::Flash
   
     
-    get '/login' do
-      haml :root
-    end
-
     helpers Sinatra::UrlForHelper
     helpers Chirpr::Helpers
 

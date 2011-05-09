@@ -7,6 +7,7 @@ class Chirp
   property :created_at, DateTime
 
   validates_length_of   :message, :within => 1..141
+
   belongs_to :profile
 
   def self.latest
