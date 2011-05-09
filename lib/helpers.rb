@@ -2,8 +2,7 @@ module Chirpr
   module Helpers
 
     def format_time(t)
-      # TODO: Format this nicely
-      t
+      t.strftime("%B %d, %Y, at %l:%M%p")
     end
 
     def screen_name
@@ -13,6 +12,11 @@ module Chirpr
 
     def current_user
       session[:user]
+    end
+
+    def icon_for(profile)
+      return "" if profile.icon_url.nil?
+      "<img src='#{profile.icon_url}' alt='#{profile.name}'/>"
     end
 
     def configured?
